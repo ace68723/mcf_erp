@@ -1,0 +1,32 @@
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
+        <!-- begin:: Page -->
+        <div class="m-grid m-grid--hor m-grid--root m-page">
+            <app-header></app-header>
+            <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+                <app-sidebar></app-sidebar>
+                <div class="m-content" style="width:100%">
+                    	<div class="m-portlet" style="width:120%">
+                                <div class="m-portlet__head">
+                                    <div class="m-portlet__head-caption">
+                                        <div class="m-portlet__head-title">
+                                            <h3 class="m-portlet__head-text">
+                                                    Hello, {{companyInfo.display_name}}
+                                           </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-section__content">
+                                        <div class="m-demo" data-code-preview="true" data-code-html="true" data-code-js="false">
+                                            <div class="m-demo__preview">
+                                                    <h4>Address: {{companyInfo.address}}</h4>
+                                                    <h4>Telephone: {{companyInfo.cell}} </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                <!--end::Form-->
+                            </div>
+                </div>
+            </div>
+        </div>
+    </body> 

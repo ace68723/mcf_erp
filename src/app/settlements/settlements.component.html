@@ -1,0 +1,75 @@
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
+	<!-- begin:: Page -->
+	<div class="m-grid m-grid--hor m-grid--root m-page">
+        <app-header></app-header>
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+            <app-sidebar></app-sidebar>
+            <div class="m-content" style="width:100%">
+                
+                <div class="m-portlet m-portlet--mobile">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text">
+                                    Static Datatable
+                                </h3>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="m-portlet__body">
+                        <!--begin: Search Form -->
+                      
+                        <!--end: Search Form -->
+                        <!--begin: Datatable -->
+                        <div class="m-section__content">
+                            <table class="table m-table m-table--head-bg-success" >
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Settlement ID
+                                    </th>
+                                    <th>
+                                        起始时间
+                                    </th>
+                                    <th>
+                                        结算时间
+                                    </th>
+                                    <th>
+                                        金额
+                                    </th>
+                                    <th>
+                                        结款状态
+                                    </th>
+                                    
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr  *ngFor="let item of categories; index as i;trackBy: i" [attr.data-index]="i" >
+                                        <td scope="row">
+                                            {{item.settle_id}}
+                                        </td>
+                                        <td>
+                                            {{item.start_time}}
+                                        </td>
+                                        <td>
+                                            {{item.end_time}}
+                                        </td>
+                                        <td>
+                                            {{item.amount_in_cent}}
+                                        </td>
+
+                                        <td>
+                                            {{item.is_remitted}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <!--end: Datatable -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body> 
