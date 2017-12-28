@@ -16,6 +16,7 @@ export class TransactionComponent implements OnInit, AfterViewInit {
     total_page: number;
     categories: any;
     status: any;
+    i: any;
     time: any = [
     ];
     displaytime: any = [];
