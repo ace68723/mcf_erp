@@ -24,7 +24,7 @@ export class AppService {
         return response.json();
       }).catch(this.handleError);
   }
-  getSettlements() {
+  getSettlements(page_num) {
     let headers = new Headers({
       'Auth-Token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjIsInJvbGUiOjY2NiwidXNlcm5hbWUiOiJ0ZXN0QWRtaW4iLCJhY2NvdW50X2lkIjozLCJleHBpcmUiOjE1MTMyODQ3ODR9.g0p4R3Sq83wc7452ZB0v-4CKcAIGRYObqH31NK4iadA',
       'Content-Type': 'application/json'
@@ -32,13 +32,13 @@ export class AppService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http
-      .post('https://mcfpayapi.ca/api/v1/merchant/get_settlements/', {'page_num': 1, 'page_size': 20}, {headers: headers}
+      .post('https://mcfpayapi.ca/api/v1/merchant/get_settlements/', {'page_num': page_num, 'page_size': 20}, {headers: headers}
       ).map((response: Response) => {
         return response.json();
       }).catch(this.handleError);
      
   }
-  getTodayBill() {
+  getTodayBill(page_num) {
     let headers = new Headers({
       'Auth-Token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjIsInJvbGUiOjY2NiwidXNlcm5hbWUiOiJ0ZXN0QWRtaW4iLCJhY2NvdW50X2lkIjozLCJleHBpcmUiOjE1MTMyODQ3ODR9.g0p4R3Sq83wc7452ZB0v-4CKcAIGRYObqH31NK4iadA',
       'Content-Type': 'application/json'
@@ -46,12 +46,12 @@ export class AppService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http
-      .post('https://mcfpayapi.ca/api/v1/merchant/get_hot_txns/', {'page_num': 1, 'page_size': 20}, {headers: headers}
+      .post('https://mcfpayapi.ca/api/v1/merchant/get_hot_txns/', {'page_num': page_num, 'page_size': 20}, {headers: headers}
       ).map((response: Response) => {
         return response.json();
       }).catch(this.handleError);
   }
-  getBillHistory(time) {
+  getBillHistory(time, page_num) {
     let headers = new Headers({
       'Auth-Token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjIsInJvbGUiOjY2NiwidXNlcm5hbWUiOiJ0ZXN0QWRtaW4iLCJhY2NvdW50X2lkIjozLCJleHBpcmUiOjE1MTMyODQ3ODR9.g0p4R3Sq83wc7452ZB0v-4CKcAIGRYObqH31NK4iadA',
       'Content-Type': 'application/json'
@@ -59,7 +59,8 @@ export class AppService {
     const body = {
       'start_time': time.iv_start,
       'end_time': time.iv_end,
-      'page_num': 1, 'page_size': 20
+      'page_num': page_num,
+      'page_size': 20
    };
     let options = new RequestOptions({ headers: headers });
 
@@ -69,19 +70,20 @@ export class AppService {
         return response.json();
       }).catch(this.handleError);
   }
-  login() {
+  login(model) {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
+    const body ={
+      'merchant_id': model.merchant_id,
+      'username': model.username,
+      'password': model.password,
+      'version': 'v0.1'
+    };
     let options = new RequestOptions({ headers: headers });
 
     return this.http
-      .post('https://mcfpayapi.ca/login/', {
-          'merchantID': 'mcfAdmin',
-          'username': 'admin',
-          'password': 'laotie666*!',
-          'version': 'v0.1'
-      }, {headers: headers}
+      .post('https://mcfpayapi.ca/login/', body, {headers: headers}
       ).map((response: Response) => {
         return response.json();
       }).catch(this.handleError);

@@ -33,16 +33,16 @@
                                             <i class="la la-calendar-check-o"></i>
                                         </span>
                                     </div>
-                                    <button (click) = "getBillHistory()" class="btn m-btn m-btn--gradient-from-primary m-btn--gradient-to-info" >获取过去订单</button>
+                                    <button class="btn btn-warning" (click) = "getBillHistory()" class="btn m-btn m-btn--gradient-from-primary m-btn--gradient-to-info" >获取过去订单</button>
                                 </div>
                                 <br>
-                                <button (click) = "getTable()" class="btn m-btn m-btn--gradient-from-primary m-btn--gradient-to-info" >获取今天订单</button>
+                                <button class="btn btn-warning" (click) = "getTable()" class="btn m-btn m-btn--gradient-from-primary m-btn--gradient-to-info" >获取今天订单</button>
                             </div>
                         </div>
                         <!--end: Search Form -->
                         <!--begin: Datatable -->
                         <div class="m-section__content">
-                            <table class="table m-table m-table--head-bg-success" >
+                            <table class="table m-table m-table--head-separator-primary" >
                                 <thead>
                                 <tr>
                                     <th>
@@ -70,25 +70,31 @@
                                         <td scope="row">
                                             {{item.ref_id}}
                                         </td>
-                                        <td>
+                                        <td scope="row">
                                             {{item.time}}
                                         </td>
                                        
-                                        <td>
+                                        <td scope="row">
                                             {{item.amount_in_cent}}
                                         </td>
-                                        <td>
+                                        <td scope="row">
                                             {{item.vendor_channel}}
                                         </td>
-                                        <td>
+                                        <td scope="row">
                                             {{item.is_refund}}
                                         </td>
-                                        <td>
+                                        <td scope="row">
                                             {{item.username}}
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>                            
+                            </table>    
+                            <div style="display: inline-flex" *ngFor="let item of pageNumArray;  index as i;trackBy: i" [attr.data-index]="i">
+                                <a style="margin-right:7px" class="btn btn-outline-warning m-btn m-btn--icon m-btn--icon-only" (click) = 'goToPage(i)'>
+                                        <p style="height: 100%;
+                                        margin-top: 27%;">{{i+1}}</p>
+                                </a>
+                             </div>            
                         </div>
                     <!--end: Datatable -->
                     </div>

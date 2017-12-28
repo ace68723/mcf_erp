@@ -11,29 +11,46 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class TransactionComponent implements OnInit, AfterViewInit {
     @ViewChild('ip') ip: ElementRef;
     @ViewChild('ipp') ipp: ElementRef;
-
+    page_num: number;
+    page_size: number;
+    total_page: number;
     categories: any;
-    show: any = true;
-    newRank: any;
-    categoryList: any;
-    test: any= 123;
+    status: any;
     time: any = [
     ];
+    displaytime: any = [];
+    pageNumArray: any = [];
     constructor(private _script: ScriptLoaderService, private appService: AppService) {
 
     }
     ngOnInit() {
+        this.getTable();
     }
 
     ngAfterViewInit() {
         this._script.load('app-transaction',
         'assets/bootstrap-datepicker.js');
     }
-
+    getNumber() {
+      return this.pageNumArray = new Array(this.total_page);
+    }
+    goToPage(i) {
+      this.page_num = i + 1;
+      if (this.status == 'hot') {
+        this.getTable();
+      } else if (this.status == 'history') {
+        this.getBillHistory();
+      }
+    }
     getTable() {
-      this.appService.getTodayBill().subscribe(
+      this.appService.getTodayBill(this.page_num).subscribe(
         event => {
-          this.categories = event.ev_data.txns;
+          this.categories = event.ev_data.recs;
+          this.page_num = event.ev_data.page_num;
+          this.total_page = event.ev_data.total_page;
+          console.log(event.ev_data.total_page);
+          console.log(this.total_page);
+          this.status = 'hot';
           console.log(this.categories);
           this.categories.forEach(item => {
             if (item.vendor_channel == "WX") {
@@ -63,21 +80,29 @@ export class TransactionComponent implements OnInit, AfterViewInit {
           });
         }
       );
+      setTimeout(() => {
+        this.getNumber();
+      }, 2000);
+      console.log(this.total_page);
+      console.log(this.pageNumArray);
     }
     getBillHistory() {
         this.time.iv_start = this.ip.nativeElement.value;
         this.time.iv_end = this.ipp.nativeElement.value;
         console.log(this.time.iv_start);
         console.log(this.time.iv_end);
-        this.time.iv_start = new Date(this.time.iv_start).getTime() / 1000;
-        this.time.iv_end = new Date(this.time.iv_end).getTime() / 1000;
+        this.displaytime.iv_start = new Date(this.time.iv_start).getTime() / 1000;
+        this.displaytime.iv_end = new Date(this.time.iv_end).getTime() / 1000;
 
-        console.log(this.time.iv_start);
-        console.log(this.time.iv_end);
-        this.appService.getBillHistory(this.time).subscribe(
+        console.log(this.displaytime.iv_start);
+        console.log(this.displaytime.iv_end);
+        this.appService.getBillHistory(this.displaytime, this.page_num).subscribe(
           event => {
             console.log(event);
-            this.categories = event.ev_data.txns;
+            this.categories = event.ev_data.recs;
+            this.page_num = event.ev_data.page_num;
+            this.total_page = event.ev_data.total_page;
+            this.status = 'history';
             console.log(this.categories);
             this.categories.forEach(item => {
                 if (item.vendor_channel == "WX") {
@@ -107,6 +132,10 @@ export class TransactionComponent implements OnInit, AfterViewInit {
               });
           }
         );
+        setTimeout(() => {
+          this.getNumber();
+        }, 2000);
+        console.log(this.pageNumArray);
       }
     convertTime(time) {
         Math.round(new Date('time').getTime() / 1000);

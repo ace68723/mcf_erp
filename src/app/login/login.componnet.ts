@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
      this.is_logged();
    }
   login() {
-    this.appService.login().subscribe(
+    this.appService.login(this.model).subscribe(
       event => {
         console.log(event);
         localStorage.setItem('token', JSON.stringify(event.token));

@@ -31,7 +31,7 @@ import { AuthGuard } from './auth/auth.guard';
     TransactionComponent
   ],
   imports: [
-    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules }),
     BrowserModule,
     HttpModule,
     FormsModule

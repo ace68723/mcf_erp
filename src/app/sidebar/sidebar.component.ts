@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styles: [`
-  div > a.active {color: #43C9A2};
-  div > span.active {color: #43C9A2}
+  div > a.active {color: #c49a6c };
+  div > span.active {color: #c49a6c }
+  div > a {color: #2f3038 };
+  div > span {color: #2f3038 }
   `]
 })
 
